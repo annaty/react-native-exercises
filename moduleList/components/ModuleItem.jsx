@@ -3,20 +3,21 @@ import { StyleSheet, View, Text } from 'react-native';
 
 export default class Module extends Component {
     render() {
+        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.title}>{props.name}</Text>
-                    <Text style={styles.description}>{props.description}</Text>
+                    <Text style={styles.title}>{this.props.data.module.item.name}</Text>
+                    <Text style={styles.description}>{this.props.data.module.item.description}</Text>
                 </View>
                 <View>
-                    <Text style={styles.year}>{props.year}</Text>
+                    <Text style={styles.year}>{this.props.data.module.item.year}</Text>
                     {/* <Image
                         style={styles.icon}
                         source={}
                     /> */}
                 </View>
-                <Text style={styles.teacher}>{props.teacher}</Text>
+                <Text style={styles.teacher}>{this.props.data.module.item.teacher}</Text>
             </View>
         );
     }
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: 'gray'
     },
-    year : {
+    year: {
         fontSize: 36,
     },
     icon: {

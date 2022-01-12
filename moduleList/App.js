@@ -4,14 +4,14 @@ import { render } from "react-dom";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import ModuleItem from "./components/ModuleItem";
 
-const modules = [
+export const modules = [
 	{
 		id: 0,
 		name: "Introduction to programming",
 		description: "An introductory class to procedural programming",
 		teacher: "B. Obama",
 		year: "1A",
-		icon: "./assets/module-icon/computer.png",
+		icon: require("./assets/module-icon/computer.png"),
 	},
 	{
 		id: 1,
@@ -19,7 +19,7 @@ const modules = [
 		description: "Class on probability and statistics",
 		teacher: "M. Obama",
 		year: "1A",
-		icon: "./assets/module-icon/math.png",
+		icon: require("./assets/module-icon/math.png"),
 	},
 	{
 		id: 2,
@@ -27,7 +27,7 @@ const modules = [
 		description: "Introductory class to robotics",
 		teacher: "G. Bush",
 		year: "2A",
-		icon: "./assets/module-icon/robot.png",
+		icon: require("./assets/module-icon/robot.png"),
 	},
 	{
 		id: 3,
@@ -35,7 +35,7 @@ const modules = [
 		description: "Class on useful tools",
 		teacher: "H. Clinton",
 		year: "3A",
-		icon: "./assets/module-icon/tool.png",
+		icon: require("./assets/module-icon/tool.png"),
 	},
 ];
 

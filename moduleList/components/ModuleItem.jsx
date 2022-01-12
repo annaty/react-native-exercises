@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
+import { modules } from '../App'
 
 export default class Module extends Component {
     render() {
-        console.log(this.props)
+        const imagePath = modules.find(x => x.id == this.props.data.module.item.id).icon;
         return (
             <View style={styles.container}>
                 <View style={styles.itemDetails}>
@@ -16,14 +17,12 @@ export default class Module extends Component {
                             <Text style={styles.description}>{this.props.data.module.item.description}</Text>
                         </View>
                     </View>
-                    <Text style={styles.teacher}>{this.props.data.module.item.teacher}</Text>
+                    <Text style={styles.teacher}>Teacher: {this.props.data.module.item.teacher}</Text>
                 </View>
-                {/* <Image
+                <Image
                     style={styles.icon}
-                    source={{
-                        uri: this.props.data.module.item.icon,
-                    }}
-                /> */}
+                    source={imagePath}
+                />
             </View>
         );
     }
@@ -36,6 +35,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
         margin: 20,
+        flexDirection: 'row'
     },
     itemDetails: {
         width: 250,
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginBottom: 10,
     },
     description: {
         fontSize: 24,
@@ -54,13 +55,15 @@ const styles = StyleSheet.create({
     },
     year: {
         fontSize: 36,
-        marginLeft: 10,
+        marginLeft: 20,
     },
     icon: {
-        width: 50,
+        width: 100,
+        height: 100,
+        marginLeft: 25,
     },
     teacher: {
-        fontSize: 24,
+        fontSize: 16,
         alignSelf: 'flex-end',
         marginTop: 50,
     }

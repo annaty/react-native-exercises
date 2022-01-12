@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from "react-native";
 import ModuleItem from "./components/ModuleItem";
+// import { SearchBar } from 'react-native-elements';cd
 
 export const modules = [
 	{
@@ -40,12 +41,43 @@ export const modules = [
 ];
 
 export default class App extends Component {
+  state = {
+    show: false
+  }
+
+  toggle = () => this.setState((currentState) => ({show: !currentState.show}));
+  clearList = () => (modules = []);
 	renderModule = ({ moduleData }) => <ModuleItem module={{ moduleData }} />;
+
+  renderHeader = () => {
+    return (
+        <SearchBar
+        placeholder="Search Module..."
+        lightTheme
+        round
+        onChangeText={text => this.searchFilterFunction(text)}
+        value={this.state.value}
+        />
+    );
+  };
 
 	render() {
 		return (
-			<View>
+			<View style={styles.container}>
+        <TouchableOpacity onPress={this.toggle}>
+					<View style={styles.button}>
+						<Text style={styles.buttonText}>Show list</Text>
+					</View>
+				</TouchableOpacity>
+
+        <TouchableOpacity onPress={this.clearList}>
+					<View style={styles.button}>
+						<Text style={styles.buttonText}>Remove all modules from list</Text>
+					</View>
+				</TouchableOpacity>
+
 				<FlatList
+          style={this.state.show ? {} : { display: 'none' }}
 					data={modules}
 					renderItem={(module) => <ModuleItem data={{ module }} />}
 					keyExtractor={(module) => module.id.toString()}
@@ -60,6 +92,17 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#fff",
 		alignItems: "center",
+	},
+  button: {
+		backgroundColor: "green",
+		width: 250,
+		height: 40,
 		justifyContent: "center",
+		alignItems: "center",
+		borderRadius: 50,
+    margin: 10,
+	},
+  buttonText: {
+		color: "white",
 	},
 });

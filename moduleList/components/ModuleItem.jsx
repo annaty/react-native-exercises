@@ -3,8 +3,11 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { modules } from '../App'
 
 export default class Module extends Component {
+    
+
     render() {
         const imagePath = modules.find(x => x.id == this.props.data.module.item.id).icon;
+
         return (
             <View style={styles.container}>
                 <View style={styles.itemDetails}>
@@ -35,7 +38,9 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'center',
         margin: 20,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        borderBottomColor: 'gray',
+        borderBottomWidth: 1
     },
     itemDetails: {
         width: 250,
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     description: {
-        fontSize: 24,
+        fontSize: 20,
         color: 'gray'
     },
     year: {
@@ -65,6 +70,7 @@ const styles = StyleSheet.create({
     teacher: {
         fontSize: 16,
         alignSelf: 'flex-end',
-        marginTop: 50,
+        marginTop: 40,
+        marginBottom: 10,
     }
 });

@@ -4,15 +4,15 @@ import koala from './assets/koala.png';
 import atSymbol from './assets/at.png';
 import glass from './assets/glass.png';
 
-const users = [{'username': 'anna', 'email': 'anna', 'password': 'anna'}, 
-{'username': 'me', 'email': 'ma', 'password': 'me'}, 
-{'username': 'be', 'email': 'ba', 'password': 'boo'}]
+const users = [{ 'username': 'anna', 'email': 'anna', 'password': 'anna' },
+{ 'username': 'me', 'email': 'ma', 'password': 'me' },
+{ 'username': 'be', 'email': 'ba', 'password': 'boo' }]
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: '', password: ''};
-    
+    this.state = { email: '', password: '' };
+
   }
 
   _forgottenPasword() {
@@ -22,14 +22,14 @@ export default class App extends Component {
   _signIn() {
     let title = 'Connection';
     let message = '\nIncorrect credentials';
-      for (let key in users) {
-        let user = users[key];
-        if (user.email == this.state.email && user.password == this.state.password) {
-          message = ' with the email ' + this.state.email + ' and password ' + this.state.password;
-          break;
-        }
+    for (let key in users) {
+      let user = users[key];
+      if (user.email == this.state.email && user.password == this.state.password) {
+        message = ' with the email ' + this.state.email + ' and password ' + this.state.password;
+        break;
       }
-      alert(title + message);
+    }
+    alert(title + message);
   }
 
   _signUp() {
@@ -37,47 +37,45 @@ export default class App extends Component {
   }
 
   render() {
-    
-
     return (
       <View style={styles.container}>
         <Image
-            style={styles.logo}
-            source={koala}
+          style={styles.logo}
+          source={koala}
+        />
+
+        <View style={styles.fieldContainer}>
+          <Image
+            style={styles.icon}
+            source={atSymbol}
           />
-  
+          <TextInput
+            style={{ height: 40 }}
+            placeholder="Email"
+            onChangeText={(email) => this.setState({ email })}
+            value={this.state.email}
+          />
+        </View>
+
         <View style={styles.fieldContainer}>
           <Image
-              style={styles.icon}
-              source={atSymbol}
-            />
-            <TextInput
-              style={{height: 40}}
-              placeholder="Email"
-              onChangeText={(email) => this.setState({email})}
-              value={this.state.email}
-            />
+            style={styles.icon}
+            source={glass}
+          />
+          <TextInput
+            style={{ height: 40 }}
+            placeholder="Password"
+            onChangeText={(password) => this.setState({ password })}
+            value={this.state.password}
+          />
         </View>
-  
-        <View style={styles.fieldContainer}>
-          <Image
-              style={styles.icon}
-              source={glass}
-            />
-            <TextInput
-              style={{height: 40}}
-              placeholder="Password"
-              onChangeText={(password) => this.setState({password})}
-              value={this.state.password}
-            />
-        </View>
-  
+
         <TouchableOpacity onPress={(event) => this._signIn()}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Sign in</Text>
           </View>
         </TouchableOpacity>
-  
+
         <Text style={styles.link} onPress={this._forgottenPasword}>Forgot my password</Text>
         <Text style={styles.link} onPress={this._signUp}>Sign up</Text>
       </View>

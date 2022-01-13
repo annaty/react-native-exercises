@@ -44,6 +44,14 @@ export const modules = [
 		year: "3A",
 		icon: require("./assets/module-icon/tool.png"),
 	},
+	{
+		id: 4,
+		name: "Programming tools part 2",
+		description: "Class on useful tools part 2 ",
+		teacher: "B. Bunny",
+		year: "3B",
+		icon: require("./assets/module-icon/tool.png"),
+	},
 ];
 
 export default class App extends Component {
@@ -76,7 +84,11 @@ export default class App extends Component {
 
 	toggle = () =>
 		this.setState((currentState) => ({ show: !currentState.show }));
-	clearList = () => (modules = []);
+	clearList = () => {
+		this.setState({
+			data: [],
+		});
+	};
 	renderModule = ({ moduleData }) => <ModuleItem module={{ moduleData }} />;
 
 	render() {

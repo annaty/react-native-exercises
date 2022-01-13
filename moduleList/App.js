@@ -9,7 +9,7 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import ModuleItem from "./components/ModuleItem";
-// import { SearchBar } from 'react-native-elements';cd
+import { SearchBar } from 'react-native-elements';
 
 export const modules = [
 	{
@@ -47,30 +47,50 @@ export const modules = [
 ];
 
 export default class App extends Component {
-	state = {
-		show: false,
-	};
+	constructor(props) {
+		super(props);
 
+		this.state = {
+			show: false,
+			data: [],
+		};
+
+		this.arrayholder = modules;
+	}
+
+	searchFilter = text => {
+		this.setState({
+			value: text,
+		});
+
+		const newData = this.arrayholder.filter(item => {
+			const itemData = `${item.year.toUpperCase()} $`;
+			const textData = text.toUpperCase();
+
+			return itemData.indexOf(textData) > -1;
+		});
+		this.setState({
+			data: newData,
+		});
+	};
+	
 	toggle = () =>
 		this.setState((currentState) => ({ show: !currentState.show }));
 	clearList = () => (modules = []);
 	renderModule = ({ moduleData }) => <ModuleItem module={{ moduleData }} />;
 
-	renderHeader = () => {
-		return (
-			<SearchBar
-				placeholder="Search Module..."
-				lightTheme
-				round
-				onChangeText={(text) => this.searchFilterFunction(text)}
-				value={this.state.value}
-			/>
-		);
-	};
-
 	render() {
 		return (
 			<View style={styles.container}>
+				<SearchBar        
+					placeholder="Search modules"        
+					lightTheme        
+					round        
+					onChangeText={ text => this.searchFilter(text) }
+					autoCorrect={false}
+					value={this.state.value}         
+				/>  
+
 				<TouchableOpacity onPress={this.toggle}>
 					<View style={styles.button}>
 						<Text style={styles.buttonText}>Show list</Text>
@@ -87,7 +107,7 @@ export default class App extends Component {
 
 				<FlatList
 					style={this.state.show ? {} : { display: "none" }}
-					data={modules}
+					data={this.state.data}
 					renderItem={(module) => <ModuleItem data={{ module }} />}
 					keyExtractor={(module) => module.id.toString()}
 				/>

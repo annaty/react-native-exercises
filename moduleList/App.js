@@ -9,7 +9,7 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import ModuleItem from "./components/ModuleItem";
-import { SearchBar } from 'react-native-elements';
+import { SearchBar } from "react-native-elements";
 
 export const modules = [
 	{
@@ -52,19 +52,19 @@ export default class App extends Component {
 
 		this.state = {
 			show: false,
-			data: [],
+			data: modules,
 		};
 
 		this.arrayholder = modules;
 	}
 
-	searchFilter = text => {
+	searchFilter = (text) => {
 		this.setState({
 			value: text,
 		});
 
-		const newData = this.arrayholder.filter(item => {
-			const itemData = `${item.year.toUpperCase()} $`;
+		const newData = this.arrayholder.filter((item) => {
+			const itemData = `${item.year.toUpperCase()}`;
 			const textData = text.toUpperCase();
 
 			return itemData.indexOf(textData) > -1;
@@ -73,7 +73,7 @@ export default class App extends Component {
 			data: newData,
 		});
 	};
-	
+
 	toggle = () =>
 		this.setState((currentState) => ({ show: !currentState.show }));
 	clearList = () => (modules = []);
@@ -82,14 +82,16 @@ export default class App extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<SearchBar        
-					placeholder="Search modules"        
-					lightTheme        
-					round        
-					onChangeText={ text => this.searchFilter(text) }
+				<SearchBar
+					containerStyle={styles.searchContainer}
+					inputContainerStyle={styles.inputContainer}
+					inputStyle={styles.textInput}
+					placeholder="Search modules"
+					lightTheme
+					onChangeText={(text) => this.searchFilter(text)}
 					autoCorrect={false}
-					value={this.state.value}         
-				/>  
+					value={this.state.value}
+				/>
 
 				<TouchableOpacity onPress={this.toggle}>
 					<View style={styles.button}>
@@ -121,6 +123,17 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#fff",
 		alignItems: "center",
+	},
+	searchContainer: {
+		backgroundColor: "white",
+	},
+	inputContainer: {
+		height: 40,
+		borderRadius: 50,
+		width: 250,
+	},
+	textInput: {
+		fontSize: 14,
 	},
 	button: {
 		backgroundColor: "green",

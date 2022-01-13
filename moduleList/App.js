@@ -79,7 +79,6 @@ export default class App extends Component {
 		});
 
 		if (newData.length !== 0) {
-			console.log(newData);
 			this.setState({
 				data: newData,
 			});

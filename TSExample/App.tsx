@@ -21,47 +21,47 @@ export type moduleType = {
 };
 
 export const modules: moduleType[] = [
-    {
-      id: 0,
-      name: "Introduction to programming",
-      description: "An introductory class to procedural programming",
-      teacher: "B. Obama",
-      year: "1A",
-      icon: require("./assets/module-icon/computer.png"),
-    },
-    {
-      id: 1,
-      name: "Math",
-      description: "Class on probability and statistics",
-      teacher: "M. Obama",
-      year: "1A",
-      icon: require("./assets/module-icon/math.png"),
-    },
-    {
-      id: 2,
-      name: "Robotics",
-      description: "Introductory class to robotics",
-      teacher: "G. Bush",
-      year: "2A",
-      icon: require("./assets/module-icon/robot.png"),
-    },
-    {
-      id: 3,
-      name: "Programming tools",
-      description: "Class on useful tools",
-      teacher: "H. Clinton",
-      year: "3A",
-      icon: require("./assets/module-icon/tool.png"),
-    },
-    {
-      id: 4,
-      name: "Programming tools part 2",
-      description: "Class on useful tools part 2 ",
-      teacher: "B. Bunny",
-      year: "3B",
-      icon: require("./assets/module-icon/tool.png"),
-    },
-  ];
+  {
+    id: 0,
+    name: "Introduction to programming",
+    description: "An introductory class to procedural programming",
+    teacher: "B. Obama",
+    year: "1A",
+    icon: require("./assets/module-icon/computer.png"),
+  },
+  {
+    id: 1,
+    name: "Math",
+    description: "Class on probability and statistics",
+    teacher: "M. Obama",
+    year: "1A",
+    icon: require("./assets/module-icon/math.png"),
+  },
+  {
+    id: 2,
+    name: "Robotics",
+    description: "Introductory class to robotics",
+    teacher: "G. Bush",
+    year: "2A",
+    icon: require("./assets/module-icon/robot.png"),
+  },
+  {
+    id: 3,
+    name: "Programming tools",
+    description: "Class on useful tools",
+    teacher: "H. Clinton",
+    year: "3A",
+    icon: require("./assets/module-icon/tool.png"),
+  },
+  {
+    id: 4,
+    name: "Programming tools part 2",
+    description: "Class on useful tools part 2 ",
+    teacher: "B. Bunny",
+    year: "3B",
+    icon: require("./assets/module-icon/tool.png"),
+  },
+];
 
 type AppProps = {
   moduleData: moduleType;
@@ -80,7 +80,7 @@ export default class App extends Component<AppProps, AppState> {
       show: false,
       data: modules,
       value: '',
-    }; 
+    };
   }
 
   searchFilter = (text: string): any => {
@@ -89,7 +89,7 @@ export default class App extends Component<AppProps, AppState> {
       value: text,
     });
 
-    const newData  = arrayholder.filter((item: moduleType) => {
+    const newData = arrayholder.filter((item: moduleType) => {
       const itemData = `${item.year.toUpperCase()}`;
       const textData = text.toUpperCase();
 
@@ -110,8 +110,8 @@ export default class App extends Component<AppProps, AppState> {
       data: [],
     });
   };
-  renderModule = ({moduleData}: {moduleData: moduleType}) => <ModuleItem module={moduleData} />;
-  onChangeText = (text="")  => this.searchFilter(text)
+  renderModule = ({ moduleData }: { moduleData: moduleType }) => <ModuleItem module={moduleData} />;
+  onChangeText = (text = "") => this.searchFilter(text)
 
   render() {
     const moduleArray: moduleType[] = modules;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { modules } from '../App';
-import { moduleType } from  '../App';
+import { moduleType } from '../App';
 
 type ModuleProps = {
     module: any;
@@ -9,7 +9,7 @@ type ModuleProps = {
 
 export default class ModuleItem extends Component<ModuleProps, any> {
     render() {
-        if (!modules) { 
+        if (!modules) {
             const imagePath = modules.find((x: moduleType) => x.id == this.props.data.module.item.id).icon;
         }
 

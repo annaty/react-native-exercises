@@ -77,9 +77,13 @@ export default class App extends Component {
 
 			return itemData.indexOf(textData) > -1;
 		});
-		this.setState({
-			data: newData,
-		});
+
+		if (newData.length !== 0) {
+			console.log(newData);
+			this.setState({
+				data: newData,
+			});
+		}
 	};
 
 	toggle = () =>

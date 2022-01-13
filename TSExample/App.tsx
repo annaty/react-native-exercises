@@ -9,9 +9,9 @@ import {
   ImageSourcePropType
 } from "react-native";
 import ModuleItem from "./components/ModuleItem";
-import { SearchBar } from "react-native-elements";\
+import { SearchBar } from "react-native-elements";
 
-type module = {
+export type moduleType = {
   id: number;
   name: string;
   description: string;
@@ -20,7 +20,7 @@ type module = {
   icon: ImageSourcePropType;
 };
 
-export const modules: module[] = [
+export const modules: moduleType[] = [
     {
       id: 0,
       name: "Introduction to programming",
@@ -64,36 +64,32 @@ export const modules: module[] = [
   ];
 
 type AppProps = {
-  arrayholder: object[];
+  moduleData: moduleType;
 };
 
 type AppState = {
   show: boolean;
-  data: module[];
+  data: moduleType[];
   value: string;
-  arrayholder: module[]
 };
 
 export default class App extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-
     this.state = {
       show: false,
       data: modules,
       value: '',
-      arrayholder: []
-    };
-
-    this.arrayholder = modules;
+    }; 
   }
 
-  searchFilter = (text: string): void => {
+  searchFilter = (text: string): any => {
+    const arrayholder: moduleType[] = modules;
     this.setState({
       value: text,
     });
 
-    const newData:  = this.arrayholder.filter((item: module) => {
+    const newData  = arrayholder.filter((item: moduleType) => {
       const itemData = `${item.year.toUpperCase()}`;
       const textData = text.toUpperCase();
 
@@ -114,18 +110,21 @@ export default class App extends Component<AppProps, AppState> {
       data: [],
     });
   };
-  renderModule = ({ moduleData }) => <ModuleItem module={{ moduleData }} />;
+  renderModule = ({moduleData}: {moduleData: moduleType}) => <ModuleItem module={moduleData} />;
+  onChangeText = (text="")  => this.searchFilter(text)
 
   render() {
+    const moduleArray: moduleType[] = modules;
     return (
       <View style={styles.container}>
         <SearchBar
+          platform="default"
           containerStyle={styles.searchContainer}
           inputContainerStyle={styles.inputContainer}
           inputStyle={styles.textInput}
           placeholder="Search modules"
           lightTheme
-          onChangeText={(text) => this.searchFilter(text)}
+          onChangeText={this.onChangeText}
           autoCorrect={false}
           value={this.state.value}
         />
@@ -147,7 +146,7 @@ export default class App extends Component<AppProps, AppState> {
         <FlatList
           style={this.state.show ? {} : { display: "none" }}
           data={this.state.data}
-          renderItem={(module) => <ModuleItem data={{ module }} />}
+          renderItem={this.renderModule}
           keyExtractor={(module) => module.id.toString()}
         />
       </View>

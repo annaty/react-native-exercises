@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import { modules } from '../App'
+import { modules } from '../App';
+import { moduleType } from  '../App';
 
 type ModuleProps = {
-    data: typeof modules;
+    module: any;
 };
 
-
-export default class Module extends Component<ModuleProps, any> {
+export default class ModuleItem extends Component<ModuleProps, any> {
     render() {
-        const imagePath = modules.find(x => x.id == this.props.data.module.item.id).icon;
+        if (!modules) { 
+            const imagePath = modules.find((x: moduleType) => x.id == this.props.data.module.item.id).icon;
+        }
 
         return (
             <View style={styles.container}>

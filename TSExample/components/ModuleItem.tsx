@@ -7,12 +7,24 @@ type ModuleProps = {
     module: any;
 };
 
-export default class ModuleItem extends Component<ModuleProps, any> {
-    render() {
-        if (!modules) {
-            const imagePath = modules.find((x: moduleType) => x.id == this.props.data.module.item.id).icon;
-        }
+type ModuleState = {
+    imagePath: ModuleState;
+    modules: moduleType[];
+}
 
+export default class ModuleItem extends Component<ModuleProps, ModuleState> {
+    constructor(props: ModuleProps) {
+        super(props);
+        this.state = {
+            imagePath: "",
+            modules: modules,
+        };
+    }
+
+    render() {
+        if (!this.state.modules) {
+            this.setState( this.state.imagePath: modules.find((x: moduleType) => x.id == this.props.data.module.item.id).icon );
+            }
         return (
             <View style={styles.container}>
                 <View style={styles.itemDetails}>
@@ -29,7 +41,7 @@ export default class ModuleItem extends Component<ModuleProps, any> {
                 </View>
                 <Image
                     style={styles.icon}
-                    source={imagePath}
+                    source={this.state.imagePath}
                 />
             </View>
         );

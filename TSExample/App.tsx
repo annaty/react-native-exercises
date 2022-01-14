@@ -110,7 +110,7 @@ export default class App extends Component<AppProps, AppState> {
       data: [],
     });
   };
-  renderModule = ({ moduleData }: { moduleData: moduleType }) => <ModuleItem module={moduleData} />;
+  renderModule = ({ moduleData }: { moduleData: ModuleItem }) => <ModuleItem module={moduleData} />;
   onChangeText = (text = "") => this.searchFilter(text)
 
   render() {
@@ -124,6 +124,7 @@ export default class App extends Component<AppProps, AppState> {
           inputStyle={styles.textInput}
           placeholder="Search modules"
           lightTheme
+          round={true}
           onChangeText={this.onChangeText}
           autoCorrect={false}
           value={this.state.value}
@@ -146,8 +147,8 @@ export default class App extends Component<AppProps, AppState> {
         <FlatList
           style={this.state.show ? {} : { display: "none" }}
           data={this.state.data}
-          renderItem={this.renderModule}
-          keyExtractor={(module) => module.id.toString()}
+          renderItem={ ({item}) => <ModuleItem module={item} /> }
+          keyExtractor={(item: moduleType) => item.id.toString()}
         />
       </View>
     );

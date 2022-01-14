@@ -8,7 +8,7 @@ type ModuleProps = {
 };
 
 type ModuleState = {
-    imagePath: ModuleState;
+    imagePath: string;
     modules: moduleType[];
 }
 
@@ -22,8 +22,8 @@ export default class ModuleItem extends Component<ModuleProps, ModuleState> {
     }
 
     render() {
-        if (!this.state.modules) {
-            this.setState( this.state.imagePath: modules.find((x: moduleType) => x.id == this.props.data.module.item.id).icon );
+        if (typeof this.state.modules !== 'undefined') {
+            this.setState( this.state.imagePath: this!.state!.modules!.find((x: moduleType) => x.id == this.props.data.module.item.id).icon );
             }
         return (
             <View style={styles.container}>

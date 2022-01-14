@@ -1,47 +1,34 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import { modules } from '../App';
 import { moduleType } from '../App';
 
 type ModuleProps = {
-    module: any;
+    data: moduleType;
 };
 
-type ModuleState = {
-    imagePath: string;
-    modules: moduleType[];
-}
-
-export default class ModuleItem extends Component<ModuleProps, ModuleState> {
+export default class ModuleItem extends Component<ModuleProps, any> {
     constructor(props: ModuleProps) {
         super(props);
-        this.state = {
-            imagePath: "",
-            modules: modules,
-        };
     }
 
     render() {
-        if (typeof this.state.modules !== 'undefined') {
-            this.setState( this.state.imagePath: this!.state!.modules!.find((x: moduleType) => x.id == this.props.data.module.item.id).icon );
-            }
         return (
             <View style={styles.container}>
                 <View style={styles.itemDetails}>
                     <View >
                         <View style={styles.row}>
-                            <Text style={styles.title}>{this.props.data.module.item.name}</Text>
-                            <Text style={styles.year}>{this.props.data.module.item.year}</Text>
+                            <Text style={styles.title}>{this.props.data.name}</Text>
+                            <Text style={styles.year}>{this.props.data.year}</Text>
                         </View>
                         <View>
-                            <Text style={styles.description}>{this.props.data.module.item.description}</Text>
+                            <Text style={styles.description}>{this.props.data.description}</Text>
                         </View>
                     </View>
-                    <Text style={styles.teacher}>Teacher: {this.props.data.module.item.teacher}</Text>
+                    <Text style={styles.teacher}>Teacher: {this.props.data.teacher}</Text>
                 </View>
                 <Image
                     style={styles.icon}
-                    source={this.state.imagePath}
+                    source={this.props.data.icon}
                 />
             </View>
         );

@@ -7,11 +7,7 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
 import Cocktail from '../src/components/Cocktail/Cocktail';
-
-interface CocktailType {
-  idDrink: string;
-  strDrink: string;
-}
+import { ICocktail } from '../src/components/Cocktail/Cocktail';
 
 interface Props {
   navigation: RootTabScreenProps<'TabOne'>
@@ -19,7 +15,7 @@ interface Props {
 
 interface State {
   isLoaded?: boolean;
-  data?: object[];
+  data?: ICocktail[];
   query?: string;
   value: string;
 };
@@ -70,8 +66,8 @@ export default class TabOneScreen extends Component<Props, State> {
           />
           <FlatList
             data={this.state.data}
-            renderItem={ ({item}) => <Cocktail data={item} /> }
-            keyExtractor={(item: any) => item.idDrink.toString()}
+            renderItem={ ({item}) => <Cocktail item={item} /> }
+            keyExtractor={(item: ICocktail) => item.idDrink.toString()}
           />
         </View>
       </PaperProvider>

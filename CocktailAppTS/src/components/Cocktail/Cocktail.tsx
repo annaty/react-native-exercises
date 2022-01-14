@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
 interface Props {
-  data: string; 
+  data: object; 
 };
 
 interface State {
   stateData: string;
 }
 
-export default class Cocktail extends Component<Props, State, any> {
+export default class Cocktail extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 

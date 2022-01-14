@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
+import { Provider as PaperProvider, Searchbar } from 'react-native-paper';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -7,18 +9,75 @@ import { RootTabScreenProps } from '../types';
 import Cocktail from '../src/components/Cocktail/Cocktail';
 
 interface CocktailType {
-  [x: string]: string;
+  idDrink: string;
+  strDrink: string;
 }
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Cocktails</Text>
-      <Cocktail data="my data"/>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
-  );
+interface Props {
+  navigation: RootTabScreenProps<'TabOne'>
+};
+
+interface State {
+  isLoaded?: boolean;
+  data?: object[];
+  query?: string;
+  value: string;
+};
+
+export default class TabOneScreen extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      isLoaded: false,
+      data: [],
+      query: "",
+      value: ""
+
+    }
+  }
+
+  fetchData(text: string) {
+    this.setState({ value: text });
+    const url = 'http://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    console.log(url + text);
+    fetch(url + text, {
+      mode:'no-cors'
+    })
+      .then(response => response.json()
+      )
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({
+          data: responseJson.drinks,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  onChangeText = (text: string) => this.fetchData(text);
+  
+  render() {
+    return (
+      <PaperProvider>
+        <View style={styles.container}>
+          <Searchbar
+            placeholder="Search cocktails"
+            onChangeText={this.onChangeText}
+            value={this.state.value}
+          />
+          <FlatList
+            data={this.state.data}
+            renderItem={ ({item}) => <Cocktail data={item} /> }
+            keyExtractor={(item: any) => item.idDrink.toString()}
+          />
+        </View>
+      </PaperProvider>
+    );
+  } 
+  
 }
 
 const styles = StyleSheet.create({
